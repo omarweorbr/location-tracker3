@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IP Location Tracker</title>
+</head>
+<body>
+    <h1>Your Location:</h1>
+    <p id="output">Fetching location...</p>
+
+    <script>
+        async function getLocation() {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+
+                const output = `
+                    IP: ${data.ip} <br>
+                    City: ${data.city} <br>
+                    Region: ${data.region} <br>
+                    Country: ${data.country_name} <br>
+                    Latitude: ${data.latitude} <br>
+                    Longitude: ${data.longitude}
+                `;
+
+                document.getElementById("output").innerHTML = output;
+                console.log(data); // Logs all the info in the console
+            } catch (error) {
+                document.getElementById("output").innerHTML = "Failed to fetch location.";
+                console.error("Error fetching location:", error);
+            }
+        }
+
+        getLocation();
+    </script>
+</body>
+</html>
